@@ -638,7 +638,7 @@ $$ABASLB = \dfrac{\sum(L_b)}{N}$$
 
 **Ý nghĩa:** Đây là metric quan trọng nhất để đo lường __chất lượng sử dụng__ của Light Ball (Power-up mạnh nhất trong game).
 
-- Không chỉ đém số lượng Light Ball xuất hiện, mà còn đánh giá người chơi có tận dụng được nó hiệu quả hay không.
+- Không chỉ đếm số lượng Light Ball xuất hiện, mà còn đánh giá người chơi có tận dụng được nó hiệu quả hay không.
 
 - Nếu chỉ số thấp: Người chơi đang active Light Ball sai thời điểm hoặc board không hỗ trợ tốt.
 

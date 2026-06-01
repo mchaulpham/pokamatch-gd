@@ -428,7 +428,7 @@ $$APCb = \dfrac{\sum(C)}{N}$$
 
 **Công thức tính:**
 
-$$PBR = (\\%) \left( \dfrac{N_{pre}}{T} \right) \times 100$$
+$$PBR(\\%) = \left( \dfrac{N_{pre}}{T} \right) \times 100$$
 
 **Đặc tả ký hiệu:**
 

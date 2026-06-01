@@ -680,7 +680,7 @@ $$LBE (\\%) = \left( \dfrac{E}{A} \right) \times 100$$
 
 **Công thức tính:**
 
-$$$ALBC_{mb} = \dfrac{\sum(C_{mb})}{N}$
+$$$ALBC_{mb} = \dfrac{\sum(C_{mb})}{N}$$
 
 **Đặc tả ký hiệu:**
 

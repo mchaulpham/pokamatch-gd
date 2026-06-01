@@ -84,13 +84,13 @@ Mọi event đều phải chứa các tham số sau:
 
 - `level_id`: Số level (1-10)
 
-- `attempt_id:` ID duy nhất của lần chơi này
+- `attempt_id`: ID duy nhất của lần chơi này
 
-- `attempt_number:` Số thứ tự lần thử (1 = lần đầu; 2, 3, ... = retry)
+- `attempt_number`: Số thứ tự lần thử (1 = lần đầu; 2, 3, ... = retry)
 
-- `session_id:` ID phiên chơi (tùy chọn nhưng khuyến khích)
+- `session_id`: ID phiên chơi (tùy chọn nhưng khuyến khích)
 
-- `timestamp:` Thời gian hệ thống (tùy chọn)
+- `timestamp`: Thời gian hệ thống (tùy chọn)
 
 ## 2.4. Cách triển khai (implement)
 

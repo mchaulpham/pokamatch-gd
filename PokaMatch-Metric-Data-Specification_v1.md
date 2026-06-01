@@ -5,7 +5,7 @@ TÀI LIỆU ĐẶC TẢ
 - **Ngày soạn thảo:** 31/05/2026
 - **Người tạo:** Minh-Chau L. Pham
 - **Reviewer:**
-- **Mục đích:** Hướng dẫn chi tiết cách thu thập, tính toán và sử dựng các chỉ số (Metrics) liên quan đến Core Gameplay (Match-3) và Light Ball Tracking cho 10 level đầu tiên.
+- **Mục đích:** Hướng dẫn chi tiết cách thu thập, tính toán và sử dụng các chỉ số (Metrics) liên quan đến Core Gameplay (Match-3) và Light Ball Tracking cho 10 level đầu tiên.
 
 ---
 

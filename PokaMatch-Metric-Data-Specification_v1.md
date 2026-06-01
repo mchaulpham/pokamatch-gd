@@ -648,6 +648,12 @@ $$LBE (\\%) = \left( \dfrac{E}{A} \right) \times 100$$
 
 **Đặc tả ký hiệu:**
 
+- $LBE$: Light Ball Effectiveness
+
+- $E$: Số lần active Light Ball đạt hiệu quả
+
+- $A$: Tổng số lần activate Light Ball
+
 - **Event chính:** `LightBall_Activated`
 
 - **Parameters:**

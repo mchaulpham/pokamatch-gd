@@ -654,6 +654,8 @@ $$LBE (\\%) = \left( \dfrac{E}{A} \right) \times 100$$
 
 - $A$: Tổng số lần activate Light Ball
 
+**Cách thu thập dữ liệu:**
+
 - **Event chính:** `LightBall_Activated`
 
 - **Parameters:**

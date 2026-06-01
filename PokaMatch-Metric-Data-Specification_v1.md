@@ -338,7 +338,9 @@ $$ASL = \dfrac{\sum(S)}{N}$$
 
 ----
 
-### 3.1.6. Avg. Power-ups Created
+## 3.2. Power-up & Booster Metrics
+
+### 3.2.1. Avg. Power-ups Created
 
 **Định nghĩa:** Avg. Power-ups Created là số Power-up trung bình được tạo ra bằng cách match 4+ items trong một level.
 
@@ -370,10 +372,364 @@ $$APC = \dfrac{\sum(P)}{N}$$
 
   - `level_id`
 
-  - `powerup_type` (Propeller, Rocket, TNT, Light Ball)
+  - `powerup_type` (Propeller, Rocket, TNT, LightBall)
 
 **Benchmark:**
 
 - Tính trên tất cả attempt (win và fail)
 
-- Nếu $APC$
+---
+
+### 3.2.2. Avg. Power-up Combos
+
+**Định nghĩa:** Avg. Power-up Combos là số lần trung bình người chơi match 2 Power-up (Propeller, Rocket, TNT, Light Ball) với nhau trong một level.
+
+**Ý nghĩa:** Đây là metric quan trọng để đo lường __cảm giác "wow"__ và __thỏa mãn cao nhất__ trong core gameplay.
+
+- Power-up Combo tạo hiệu ứng nổ lớn, cascade đẹp mắt và giúp người chơi cảm thấy _"mình thông minh"_.
+
+- Với target audience nữ 25-44+ (Thinker archetype), chỉ số này cao sẽ tăng đáng kể cảm giác Escapism & Mastery.
+
+**Công thức tính:**
+
+$$APCb = \dfrac{\sum(C)}{N}$$
+
+**Đặc tả ký hiệu:**
+
+- $APC$: Avg. Power-up Combos
+
+- $C$: Số lần combo Power-up trong từng attempt
+
+- $N$: Tổng số attempt (win và fail)
+
+**Cách thu thập dữ liệu:**
+
+- **Event chính:** `PowerUp_Combo_Activated`
+
+- **Parameters:**
+
+  - `level_id`
+ 
+  - `combo_type` (ví dụ: Light Ball+Rocket, TNT+Propeller, ...)
+ 
+**Benchmark:**
+
+**Ghi chú:**
+
+- Tính trên tất cả **attempt** (win và fail)
+
+---
+
+### 3.2.3. Pre-Level Boosters Usage Rate (%)
+
+**Định nghĩa:** Pre-Level Boosters Usage Rate (%) là tỷ lệ phần trăm (%) người chơi chọn Pre-Level Boosters (Rocket, TNT, Light Ball) trước khi bắt đầu một level.
+
+**Ý nghĩa:**
+
+**Công thức tính:**
+
+$$PBR = (\\%) \left( \dfrac{N_{pre}}{T} \right) \times 100$$
+
+**Đặc tả ký hiệu:**
+
+- $PBR$: Pre-Level Boosters Usage Rate
+
+- $N_{pre}$: Số lần chọn Pre-Level Boosters
+
+- $T$: Tổng số lần bắt đầu level
+
+**Cách thu thập dữ liệu:**
+
+- **Event chính:** `PreLevel_Booster_Selected`
+
+- **Parameters:**
+
+  - `level_id`
+ 
+  - `booster_type` (Propeller / Rocket / TNT / LightBall / None)
+ 
+**Benchmark:**
+
+**Ghi chú:**
+
+- Tính trên __tất cả lần bắt đầu level__.
+
+---
+
+### 3.2.4. In-Game Boosters Used
+
+**Định nghĩa:** In-Game Boosters Used là số lần trung bình người chơi sử dụng In-Game Boosters (Royal Hammer, Arrow, Cannon, Jester Hat) trong một level.
+
+**Ý nghĩa:** Đây là metric quan trọng để đo lường __tần suất người chơi sử dụng boosters trong lúc chơi__.
+
+  - In-game Boosters giúp người chơi thoát khỏi tình huống khó, tăng cảm giác kiểm soát và thỏa mãn.
+
+  - Nếu chỉ số này thấp: In-Game Boosters chưa đủ hấp dẫn hoặc khó sử dụng.
+
+**Công thức tính:**
+
+$$IGBU = \dfrac{\sum(B)}{N}$$
+
+**Đặc tả ký hiệu:**
+
+- $IGBU$: In-Game Boosters Used
+
+- $B$: Số lần active In-Game Boosters trong từng attempt
+
+- $N$: Tổng số attempt (win và fail)
+
+**Cách thu thập dữ liệu:**
+
+- **Event chính:** `InGame_Booster_Activated`
+
+- **Parameters:**
+
+  - `level_id`
+ 
+  - `booster_type` (RoyalHammer / Arrow / Cannon / JesterHat)
+ 
+**Benchmark:**
+
+**Ghi chú:**
+
+- Tính trên __tất cả attempt__ (win và fail)
+
+---
+
+## 3.3. Light Ball Metrics
+
+### 3.3.1. Avg. Light Balls Created (Total)
+
+**Định nghĩa:** Avg. Light Balls Created (Total) là tổng số Light Ball trung bình xuất hiện trong một level attempt (tính từ tất cả các nguồn; Player Match-5, Pre-Level Booster và Board Auto-Spawn)
+
+**Ý nghĩa**: Đây là metric cốt lõi để đo lường __tần suất xuất hiện của Power-up mạnh nhất__ trong game.
+
+- Light Ball là yếu tố quyết định cảm giác _"thỏa mãn cao nhất"_ và khả năng hoàn thành goal nhanh.
+
+**Công thức tính:**
+
+$$ALBC = \dfrac{\sum(L)}{N}$$
+
+**Đặc tả ký hiệu:**
+
+- $$ALBC$$: Avg. Light Balls Created (Total)
+
+- $L$: Số Light Ball xuất hiện trong từng attempt
+
+- $N$: Tổng số attempt (win và fail)
+
+**Cách thu thập dữ liệu:**
+
+- **Event chính:** `LightBall_Created`
+
+- **Parameters:**
+
+  - `level_id`
+ 
+  - `source` (PlayerMatch5 / PreLevel / BoardAutoSpawn)
+ 
+**Benchmark**
+
+**Ghi chú:**
+
+- Tính trên tất cả attempt (win và fail).
+
+---
+
+### 3.3.2. Pre-Level Light Ball Usage Rate (%)
+
+**Định nghĩa:** Pre-Level Light Ball Usage Rate (%) là tỷ lệ phần trăm (%) người chơi chọn Light Ball từ Pre-Level Boosters trước khi bắt đầu một level.
+
+**Ý nghĩa:** Đây là metric quan trọng để đo lường __sức hấp dẫn__ và __mức độ sử dụng Light Ball Pre-Level Booster__.
+
+- Light Ball là Power-up mạnh nhất, chọn nó trước level giúp người chơi có lợi thế lớn ngay từ đầu.
+
+**Công thức tính:**
+
+$$PLBUR(\\%) = \left(  \dfrac{N_{preLB}}{T} \right) \times 100$$
+
+**Đặc tả ký hiệu:**
+
+- **Event chính:** `PreLevel_Booster_Selected`
+
+- **Parameters:**
+
+  - `level_id`
+ 
+  - `booster_type` = "LightBall"
+ 
+**Benchmark:**
+
+**Ghi chú:**
+
+- Tính trên __tất cả lần bắt đầu level__.
+
+- Vì Pre-Level Light Ball chỉ spawn tối đa 1 quả, chỉ số này phản ánh trực tiếp quyết định chọn booster mạnh nhất của người chơi.
+
+----
+
+### 3.3.3. Avg. Player-Created Light Balls (Match-5)
+
+**Định nghĩa:** Avg. Player-Created Light Balls (Match-5) là số Light Ball trung bình được tạo ra bởi người chơi thông qua match 5 tiles cùng màu (không tính Light Ball từ Pre-Level Booster hoặc Board Auto-Spawn).
+
+**Ý nghĩa:** Đây là metric quan trọng để đo lường __kỹ năng__ và __sự chủ động__ của người chơi trong việc tạo Power-up mạnh nhất.
+
+**Công thức tính:**
+
+$$APCLB = \dfrac{\sum(L_p)}{N}$$
+
+**Đặc tả ký hiệu:**
+
+- $APCLB$: Avg. Player-Created Light Balls (Match-5)
+
+- $L_p$: Số Light Ball được tạo bởi Player Match-5 trong từng attempt
+
+- $N$: Tổng số attempt (win và fail)
+
+**Cách thu thập dữ liệu:**
+
+- **Event chính:** `LightBall_Created`
+
+- **Parameters:**
+
+  - `level_id`
+ 
+  - `source` = "PlayerMatch5"
+ 
+**Benchmark:**
+
+**Ghi chú:**
+
+- Chỉ tính Light Ball do người chơi tự match-5 (không tính Pre-Level và Board Auto-Spawn).
+ 
+---
+
+### 3.3.4. Avg. Board Auto-Spawn Light Balls
+
+**Định nghĩa:** Avg. Board Auto-Spawn Light Balls là số Light Ball trung bình được board tự spawn khi tiles rơi xuống trong một level attempt.
+
+**Ý nghĩa:** Đây là metric quan trọng để đo lường __yếu tố ngẫu nhiên__ và __may mắn__ từ thiết kế level.
+
+**Công thức tính:**
+
+$$ABASLB = \dfrac{\sum(L_b)}{N}$$
+
+**Cách thu thập dữ liêu:**
+
+- **event chính:** `LightBall_Created`
+
+- **Parameters:**
+
+  - `level_id`
+ 
+  - `source` = "BoardAutoSpawn"
+ 
+**Benchmark**
+
+**Ghi chú:**
+
+- Tính trên tất cả attempt (win và fail)
+
+---
+
+### 3.3.5. Avg. Light Ball Effectiveness (%)
+
+**Định nghĩa:** Avg. Light Ball Effectiveness (%) là tỷ lệ phần trăm (%) các lần active Light Ball đạt hiệu quả (clear >= 25 tiles hoặc hoàn thành >= 50% goal còn lại).
+
+**Ý nghĩa:** Đây là metric quan trọng nhất để đo lường __chất lượng sử dụng__ của Light Ball (Power-up mạnh nhất trong game).
+
+- Không chỉ đém số lượng Light Ball xuất hiện, mà còn đánh giá người chơi có tận dụng được nó hiệu quả hay không.
+
+- Nếu chỉ số thấp: Người chơi đang active Light Ball sai thời điểm hoặc board không hỗ trợ tốt.
+
+**Công thức tính:**
+
+$$LBE (\\%) = \left( \dfrac{E}{A} \right) \times 100$$
+
+**Đặc tả ký hiệu:**
+
+- **Event chính:** `LightBall_Activated`
+
+- **Parameters:**
+
+  - `level_id`
+ 
+  - `tiles_cleared`
+ 
+  - `goal_progress_before`
+ 
+  - `goal_progress_after`
+ 
+**Benchmark:**
+
+**Ghi chú:**
+
+- Hiệu quả được định nghĩa là clear >= 25 tiles __hoặc__ hoàn thành >= 50% goal còn lại.
+
+- Nếu $LBE$ thấp: cần cải thiện hoặc điều chỉnh thời điểm và vị trí spawn để người chơi dễ sử dụng hơn.
+
+---
+
+### 3.3.6. Avg. Light Ball Combinations
+
+**Định nghĩa:** Avg. Light Ball Combinations là số lần trung bình người chơi kết hợp Light Ball với các Power-up khác (Propeller, Rocket, TNT, Light Ball) trong một level.
+
+**Ý nghĩa:** Đây là metric đo lường __peak moment__ (khoảng khắc thỏa mãn nhất) trong core gameplay.
+
+- Light Ball kết hợp với Power-up khác tạo hiệu ứng nổ cực lớn, cascade mạnh mẽ và clear hàng loạt tiles.
+
+**Công thức tính:**
+
+$$$ALBC_{mb} = \dfrac{\sum(C_{mb})}{N}$
+
+**Đặc tả ký hiệu:**
+
+- $ALBC_{mb}$: Avg. Light Ball Combinations
+
+- $C_{mb}$: Số lần kết hợp Light Ball với Power-up khác trong từng attempt
+
+- $N$: Tổng số attempt (win và fail).
+
+**Cách thu thập dữ liệu:**
+
+- **Event chính:** `LightBall_Activated`
+
+- **Parameters:**
+
+  - `level_id`
+ 
+  - `combined_with` (Propeller / Rocket / TNT / LightBall)
+
+ **Benchmark:**
+
+ **Ghi chú:**
+
+- Chỉ tính những lần Light Ball được kết hợp với các Power-up kacs hoặc với chính nó (không tính activate đơn thuần).
+
+- Nếu $ALBC_{mb}$ thấp: cần tăng cơ hội match Light Ball gần Power-up hoặc điều chỉnh vị trí spawn.
+
+---
+
+## 3.4. Bảng Tổng hợp
+
+| STT | Metric | Viết tắt | Định nghĩa | Event | Parameter | Benchmark |
+|:---|:---|:---|:---|:---|:---|:---|
+| 1 | First Attempt Win Rate (%) | FAWR | % win ngay ở attempt đầu tiên của level | `Level_End` | `level_id`,<br>`attempt_number` (=1) |  |
+| 2 | Avg. Attempts to Win | AATW | Trung bình số lần thử đến khi win level | `Level_End` | `level_id`,<br>`win`,<br>`attempt_number` |  |
+| 3 | Avg. Moves Used | AMU | Số move trung bình sử dụng trong attempt | `Level_End` | `level_id`,<br>`moves_used` |  |
+| 4 | Churn Rate (%) | CR | % fail/drop ngay tại level | `Level_End` | `level_id`,<br>`win` (false) |  |
+| 5 | Avg. Session Length (giây) | ASL | Thời gian trung bình chơi một level | `Level_End` | `level_id`,<br>`time_spent_seconds` |  |
+| 6 | Avg. Power-ups Created | APC | Số Power-up trung bình được tạo bằng match 4+ | `PowerUp_Created` | `level_id`,<br>`powerup_type` |  |
+| 7 | Avg. Power-up Combos | APCb | Số lần trung bình match 2 Power-up | `PowerUp_Combo_Activated` | `level_id`,<br>`combo_type` |  |
+| 8 | Pre-Level Boosters Usage Rate (%) | PBR | % người chơi chọn Pre-Level Boosters | `PreLevel_Booster_Selected` | `level_id`,<br>`booster_type` |  |
+| 9 | In-Game Boosters Used | IGBU | Số lần trung bình sử dụng In-Game Boosters | `InGame_Booster_Activated` | `level_id`,<br>`booster_type` |  |
+| 10 | Avg. Light Balls Created (Total) | ALBC | Tổng số Light Ball trung bình xuất hiện trong level | `LightBall_Created` | `level_id`,<br>`source` |  |
+| 11 | Pre-Level Light Ball Usage Rate (%) | PLBUR | % người chơi chọn Light Ball từ Pre-Level | `PreLevel_Booster_Selected` | `level_id`,<br>`booster_type` = "LightBall" |  |
+| 12 | Avg. Player-Created Light Balls (Match-5) | APCLB | % người chơi chọn Light Ball từ Pre-Level | `PreLevel_Booster_Selected` | `level_id`,<br>`booster_type` = "LightBall" |  |
+| 13 | Avg. Board Auto-Spawn Light Balls | ABASLB | Số Light Ball trung bình do Board Auto-Spawn | `LightBall_Created` | `level_id`,<br>`source` = "BoardAutoSpawn" |  |
+| 14 | Avg. Light Ball Effectiveness (%) | LBE | % lần activate Light Ball đạt hiệu quả |  |
+| 15 | Avg. Light Ball Combinations | ALBCmb | Số lần trung bình kết hợp Light Ball với Power-up khác | `LightBall_Activated` | `level_id`,<br>`combined_with` |  |
+
+
+
+

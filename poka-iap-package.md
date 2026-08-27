@@ -254,11 +254,12 @@ Khi người chơi nhấn nút `i` tại Slot 1, mở bảng thông tin gồm:
 
 *Ví dụ:*
 
-| Poka   | Hệ   | Tỷ lệ | Trạng thái  |
-| ------ | ---- | ----: | ----------- |
-| Poka A | Nước |    X% | Chưa sở hữu |
-| Poka B | Nước |    X% | Đã sở hữu   |
-| Poka C | Nước |    X% | Chưa sở hữu |
+| Poka   | Hệ   | Tỷ lệ |
+| ------ | ---- | ----: |
+| Poka A | Nước |    X% |
+| Poka B | Nước |    X% |
+| Poka C | Nước |    X% |
+
 ### Danh sách Poka (3 Poka)
 
 Mỗi Poka hiển thị:

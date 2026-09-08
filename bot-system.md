@@ -350,10 +350,10 @@ Trong mỗi lần mô phỏng:
 
 - Bước 2: Tính progression của Tick
 
-	$$ProgressionGain = CurrentEffectiveRate \times TickDuration$$
+	$$ProgressionGain = CurrentEffectiveRate \times SimulationTick$$
 
 	Với:
-	$$TickDuration = 1 \text{ (hour)}$$
+	$$SimulationTick = 1 \text{ (hour)}$$
 
 	Thì:
 	$$ProgressionGain = CurrentEffectiveRate$$

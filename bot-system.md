@@ -92,7 +92,7 @@ Các cơ chế trên có thể được nghiên cứu ở phiên bản sau nếu
 12. Bot tăng tiến trình theo thời gian.
 13. Khi sự kiện kết thúc, hệ thống tính bù Bot tới đúng thời điểm kết thúc.
 14. Chốt `CompletedLevels`.
-15. Áp dụng luật xử lý bằng điểm.
+15. Áp dụng luật xử lý nếu trùng điểm.
 16. Khóa thứ hạng cuối.
 17. Xác định Top 1, 2, 3 và phát thưởng.
 
@@ -169,10 +169,22 @@ Giả định rằng mốc Typical (điển hình) của người chơi:
 - 3 phiên chơi/ngày.
 - Hoàn thành 4 Level/phiên.
 
-Vậy 1 ngày chơi được: $$3 \times 4 = 12\text{ (Levels)}$$
-7 ngày chơi được: $$12 \times 7 = 84\text{ (Levels)}$$
-- Thời lượng sự kiện: $$7 \times 24 = 168\text{ (Giờ)}$$
-- Tốc độ: $$\frac{84}{168} = \frac{1}{2}\text{ (Level/Giờ)}$$
+Vậy 1 ngày chơi được: 
+
+$$3 \times 4 = 12\text{ (Levels)}$$
+
+7 ngày chơi được: 
+
+$$12 \times 7 = 84\text{ (Levels)}$$
+
+- Thời lượng sự kiện:
+
+$$7 \times 24 = 168\text{ (Giờ)}$$
+
+- Tốc độ:
+
+$$\frac{84}{168} = \frac{1}{2}\text{ (Level/Giờ)}$$
+
 ## 7.2. Các mốc progression giả định
 
 | Mốc       | Ý nghĩa                   | Hệ số nhân | Level / 7 ngày |
@@ -221,7 +233,7 @@ $$RateAnchor = \frac{CompletedLevelsPer7Days}{168}$$
 
 - Đơn vị: `Level/hour`.
 
-> `RateAnchor` là mức progression trung tâm mà hồ sơ đại diện.
+> $RateAnchor$ là mức progression trung tâm mà hồ sơ đại diện.
 
 ---
 
@@ -238,13 +250,15 @@ $$RateAnchor = \frac{CompletedLevelsPer7Days}{168}$$
 
 ---
 
-# 11. Sinh `BaseProgressionRate`
+# 11. Sinh $BaseProgressionRate$
 
-`BaseProgressionRate` tạo sự khác biệt giữa các Bot của cùng một hồ sơ.
+$BaseProgressionRate$ tạo sự khác biệt giữa các Bot của cùng một hồ sơ.
 
 $$BaseProgressionRate \in [RateAnchor \times (1 - RateRangePct), RateAnchor \times (1 + RateRangePct)]$$
 
-Với: $$RateRangePct = 25\%$$
+Với: 
+
+$$RateRangePct = 0.25$$
 
 | Hồ sơ         | $RateAnchor$ | Min     | Max     |
 | :------------ | ------------ | ------- | ------- |
@@ -253,10 +267,13 @@ Với: $$RateRangePct = 25\%$$
 | `Regular`     | 0.500        | 0.37500 | 0.62500 |
 | `Competitive` | 0.750        | 0.56250 | 0.93750 |
 
-Khi Bot được tạo: $$BaseProgressionRate \sim Uniform(\min, \max)$$
-`Uniform` nghĩa là lấy ngẫu nhiên theo __phân bố đều__, tức các giá trị trong khoảng có cơ hội được chọn tương đương nhau.
+Khi Bot được tạo: 
 
-`BaseProgressionRate`
+$$BaseProgressionRate \sim Uniform(\min, \max)$$
+
+> `Uniform` nghĩa là lấy ngẫu nhiên theo __phân bố đều__, tức các giá trị trong khoảng có cơ hội được chọn tương đương nhau.
+
+$BaseProgressionRate$
 - Chỉ được lấy ngẫu nhiên một lần khi Bot được tạo.
 - Giữa cố định trong toàn bộ chu kỳ Leaderboard.
 
@@ -273,28 +290,42 @@ Khoảng progression cơ sở dự kiến trong 7 ngày, chưa áp dụng biến
 
 # 12. Biến thiên progression theo thời gian
 
-Nếu Bot luôn chạy đúng `BaseProgressionRate`, progression sẽ quá tuyến tính.
+Nếu Bot luôn chạy đúng $BaseProgressionRate$, progression sẽ quá tuyến tính.
 
-Do đó, `CurrentEffectiveRate` được thay đổi theo từng khoảng 4 giờ.
+Do đó, $CurrentEffectiveRate$ được thay đổi theo từng khoảng 4 giờ.
 
 ## 12.1. Khoảng $EffectiveRate$
 
 $$EffectiveRate = [BaseProgressionRate \times (1 - ProgressionVariance), BaseProgressionRate \times (1 + ProgressionVariance)]$$
 
-Với: $$ProgressionVariance = 20\%$$
-Vậy: $$CurrentEffectiveRate \sim Uniform(EffectiveRate)$$
+Với: 
+
+$$ProgressionVariance = 0.20$$
+
+Vậy: 
+
+$$CurrentEffectiveRate \sim Uniform(EffectiveRate)$$
+
 Ví dụ: $BaseProgressionRate = 0.20$
+
 $$EffectiveRate = [0.20 \times (1 - 0.2), 0.20 \times (1 + 0.2)]$$
+
 $$CurrentEffectiveRate \sim Uniform(0.16, 0.24)$$
 
 ## 12.2. Thời gian giữ $CurrentEffectiveRate$
 
 $$VarianceTicksRemaining = \frac{VarianceInterval}{SimulationTick}$$
 
-Với cấu hình hiện tại là: $$VarianceTicksRemaining = \frac{4}{1} = 4$$
+Với cấu hình hiện tại là: 
+
+$$VarianceTicksRemaining = \frac{4}{1} = 4$$
+
 Nghĩa là, Bot được giữ $CurrentEffectiveRate$ trong 4 bước mô phỏng.
 
-- Sau mỗi bước: $$VarianceTicksRemaining = VarianceTicksRemaining - 1$$
+- Sau mỗi bước:
+
+$$VarianceTicksRemaining = VarianceTicksRemaining - 1$$
+
 - Khi $VarianceTicksRemaining = 0$, hệ thống:
 
 	- Lấy một $CurrentEffectiveRate$ mới.
@@ -306,61 +337,48 @@ Nghĩa là, Bot được giữ $CurrentEffectiveRate$ trong 4 bước mô phỏn
 
 Trong mỗi lần mô phỏng:
 
-- Bước 1:
-	$$ProgressionGain = CurrentEffectiveRate \times TickDuration$$	Với:
-	$$TickDuration = 1 \text{ (hour)}$$$$ProgressionGain = CurrentEffectiveRate$$
+- Bước 1: Chuẩn bị $CurrentEffectiveRate$
 
-- Bước 2: 
-	$$TotalProgress = ProgressAccumulator + ProgressGain$$	$$AddedLevels = \lfloor TotalProgress \rfloor$$$$CompletedLevels = CompletedLevels + AddedLevels$$	$$ProgressAccumulator = TotalProgress - AddedLevels$$
-	> Hàm `Floor` trả về phần nguyên lớn nhất nhỏ hơn hoặc bằng $TotalProgress$.
+	Nếu:
+	$$VarianceTicksRemaining = 0$$
 
-- Bước 3:
+	Thì:
+	$$CurrentEffectiveRate \sim Uniform(EffectiveRate)$$
+
+	Và:
+	$$VarianceTicksRemaining = \frac{VarianceInterval}{SimulationTick}$$
+
+- Bước 2: Tính progression của Tick
+
+	$$ProgressionGain = CurrentEffectiveRate \times TickDuration$$
+
+	Với:
+	$$TickDuration = 1 \text{ (hour)}$$
+
+	Thì:
+	$$ProgressionGain = CurrentEffectiveRate$$
+
+- Bước 3: Cập nhật $CompletedLevels$ 
+
+	$$TotalProgress = ProgressAccumulator + ProgressGain$$
+
+	$$AddedLevels = \lfloor TotalProgress \rfloor$$
+
+	$$CompletedLevels = CompletedLevels + AddedLevels$$
+
+	$$ProgressAccumulator = TotalProgress - AddedLevels$$
+
+  	> Hàm `Floor` trả về phần nguyên lớn nhất nhỏ hơn hoặc bằng $TotalProgress$.
+
+- Bước 4: Cập nhật $LastProgressTime$
+
 	$$LastProgressTime = (AddedLevels > 0) \text{ ?} \text{ Update :} \text{ Keep} $$
-	> $LastProgressTime$ được ghi nhận tại thời điểm kết thúc bước mô phỏng làm $CompletedLevels$ tăng.
 
-- Bước 4: Với mỗi $SimulationTick$ cần kiểm tra:
+  	> $LastProgressTime$ được ghi nhận tại thời điểm kết thúc bước mô phỏng làm $CompletedLevels$ tăng.
 
-```c++
-# include <iostream>
-# include <cmath>
-# include <random> // Thư viện để random
+- Bước 5: Giảm thời gian còn lại của $CurrentEffectiveRate$
 
-using namespace std;
-
-double getRandomUniform(double min, double max) {
-	// 1. Khởi tạo seed để sinh số ngẫu nhiên thực sự
-	static random_device rd;
-	
-	// 2. Khởi tạo Engine theo thuật toán Mersenne Twister
-	static mt19937 gen(rd());
-	
-	// 3. Sinh số thực ngẫu nhiên unifrom trong đoạn [min, max]
-	uniform_real_distribution<double> dist(a, nextafter(b, b + 1.0));
-	
-	return dist(gen);	
-}
-
-int main() {
-
-	double min;
-	double max;
-	double CurrentEffectiveRate;
-	int VarianceTicksRemaining;
-	int VarianceTicksRemaining_initial;
-	
-	VarianceTicksRemaining_initial = VarianceTicksRemaining;
-	
-	if (VarianceTicksRemaining == 0) {
-		CurrentEffectiveRate = getRandomUniform(min, max);
-		VarianceTicksRemaining = VarianceTicksRemaining_initial;
-	}
-	else {
-		VarianceTicksRemaining = VarianceTicksRemaining - 1;
-	}
-	
-	return 0;
-}
-```
+	$$VarianceTicksRemaining = VarianceTicksRemaining - 1$$
 
 ---
 
@@ -368,12 +386,13 @@ int main() {
 
 Bot không bắt buộc phải được server cập nhật liên tục mỗi giờ.
 
-Khi cần cập nhật Leaderboard (Client request):
+Khi cần cập nhật trạng thái Leaderboard:
 
 - Bước 1: Tính thời gian đã trôi qua
 	$$ElapsedTime = CurrentTime - LastUpdateTime$$
 
 - Bước 2: Tính số bước đầy đủ
+
 	$$ElapsedTicks = \left\lfloor \frac{ElapsedTime}{SimulationTick} \right\rfloor$$
 
 - Bước 3: Hệ thống chạy progression cho mỗi $SimulationTick$ của $ElapsedTicks$ đã tính.
@@ -381,8 +400,10 @@ Khi cần cập nhật Leaderboard (Client request):
 - Bước 4: Với mỗi $ElapsedTick$, hệ thống thực hiện logic progression được định nghĩa tại __Mục 13__
 
 - Bước 5:
+
 	$$LastUpdateTime = LastUpdateTime + ElapsedTicks \times SimulationTick$$
-	>  	Phần thời gian chưa đủ một $SimulationTick$ được giữ lại cho lần cập nhật sau.
+
+  	>  	Phần thời gian chưa đủ một $SimulationTick$ được giữ lại cho lần cập nhật sau.
 	
 
 ---
@@ -427,6 +448,7 @@ Khi cần tạo Bot:
 | `VarianceTicksRemaining` | 4                         |         |
 | `LastUpdateTime`         | LeaderboardGroupStartTime |         |
 | `LastProgressTime`       | null                      |         |
+
 8. Dùng `ParticipantID` để sắp xếp vị trí của Bot trên Leaderboard theo thứ tự tăng dần.
 9. Thêm Bot vào danh sách người tham gia.
 
@@ -456,11 +478,11 @@ Cách sản xuất nội dung tên/avatar nằm ngoài phạm vi logic Bot.
 
 # 18. Luật xếp hạng
 
-## Điều kiện 1: $CompletedLevels$ cao hơn đứng trên.
+- **Điều kiện 1:** $CompletedLevels$ cao hơn đứng trên.
 
-## Điều kiện 2: Nếu $CompletedLevels$ bằng nhau thì xét $LastProgressTime$ nào sớm hơn thì đứng trên.
+- **Điều kiện 2:** Nếu $CompletedLevels$ bằng nhau thì xét $LastProgressTime$ nào sớm hơn thì đứng trên.
 
-## Điều kiện 3: Nếu $CompletedLevels$ và $LastProgressTime$ bằng nhau thì xét $ParticipantID$ theo thứ tự tăng dần để đảm bảo kết quả xác định, không phụ thuộc random.
+- **Điều kiện 3:** Nếu $CompletedLevels$ và $LastProgressTime$ bằng nhau thì xét $ParticipantID$ theo thứ tự tăng dần để đảm bảo kết quả xác định, không phụ thuộc random.
 
 > Các field phục vụ xếp hạng (`CompletedLevels`, `LastProgressTime`, `ParticipantID`) phải áp dụng thống nhất cho cả người chơi thật và Bot.
 
@@ -476,7 +498,7 @@ Cách sản xuất nội dung tên/avatar nằm ngoài phạm vi logic Bot.
 6. Xác định Top 1, 2, 3.
 7. Phát thưởng
 
- Kết quả cuối cùng phải độc lập với thời điểm người chơi mở game lại.
+Kết quả cuối cùng phải độc lập với thời điểm người chơi mở game lại.
 
 Ví dụ: Sự kiện kết thúc lúc 20:00 nhưng người chơi mở game lúc 23:00 thì Bot chỉ được tính progression tới 20:00.
 

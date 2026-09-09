@@ -516,7 +516,7 @@ Ví dụ: Sự kiện kết thúc lúc 20:00 nhưng người chơi mở game lú
 | BaseProgressionRate   | Bot Behavior Validation | Rate được random lúc spawn               |
 | FinalCompletedLevels  | Bot Behavior Validation | Progress cuối event                      |
 | FinalRank             | Bot Behavior Validation | Rank cuối                                |
-| Top3Result            | Bot Behavior Validation | Bot có vào Top3 hay không                |
+| BotTop3Result         | Bot Behavior Validation | Bot có vào Top3 hay không                |
 | RealPlayerCount       | Leaderboard Composition | Số người chơi thật trong leaderboard     |
 | BotCount              | Leaderboard Composition | Số Bot trong leaderboard                 |
 | BotProfileComposition | Leaderboard Composition | Số Bot từng profile                      |

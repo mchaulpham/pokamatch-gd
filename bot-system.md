@@ -382,29 +382,51 @@ Trong mỗi lần mô phỏng:
 
 ---
 
-# 14. Tính bù progression khi người chơi offline
+# 14. Tính bù progression khi Bot không được cập nhật liên tục
 
-Bot không bắt buộc phải được server cập nhật liên tục mỗi giờ.
+Bot không bắt buộc phải được server cập nhật sau mỗi $SimulationTick$.
 
-Khi cần cập nhật trạng thái Leaderboard:
+Khi hệ thống cần lấy trạng thái hiện tại của Leaderboard, hệ thống phải kiểm tra khoảng thời gian Bot chưa được mô phỏng và chạy bù các $SimulationTick$ đã trôi qua.
 
-- Bước 1: Tính thời gian đã trôi qua
-	$$ElapsedTime = CurrentTime - LastUpdateTime$$
+- Bước 1: Xác định thời điểm Bot được phép cập nhật tới
 
-- Bước 2: Tính số bước đầy đủ
+	$$TargetTime = \min(CurrentTime, EventEndTime)$$
 
-	$$ElapsedTicks = \left\lfloor \frac{ElapsedTime}{SimulationTick} \right\rfloor$$
+	Trong đó:
+	- $CurrentTime$: Thời điểm hệ thống đang thực hiện cập nhật
+   	- $EventEndTime$: Thời điểm Leaderboard kết thúc
+   	- $TargetTime$: Thời điểm cuối cùng Bot được phép tính progression tới.
+ 
+  > Việc giới hạn bằng $EventEndTime$ đảm bảo Bot không nhận thêm progression sau khi sự kiện kết thúc.
 
-- Bước 3: Hệ thống chạy progression cho mỗi $SimulationTick$ của $ElapsedTicks$ đã tính.
+- Bước 2: Khoảng thời gian cần chạy bù
 
-- Bước 4: Với mỗi $ElapsedTick$, hệ thống thực hiện logic progression được định nghĩa tại __Mục 13__
+	$$ElapsedTime = TargetTime - LastUpdateTime$$
 
-- Bước 5:
+  	> $LastUpdateTime$ là mốc thời gian cuối cùng mà progression của Bot đã được mô phỏng tới.
+
+- Bước 3: Tính số bước mô phỏng đầy đủ cần chạy
+
+  	$$ElapsedTicks = \left\lfloor \frac{ElapsedTime}{SimulationTick} \right\rfloor$$
+
+- Bước 4: Chạy bù từng $SimulationTick$
+
+	Hệ thống thực hiện logic tại __Mục 13 (Cập nhật $CompletedLevels$)__ đúng $ElapsedTicks$ lần.
+
+	```c++
+	int ProcessedTicks = 0;
+
+ 	while (ProcessedTicks < ElapsedTicks) {
+ 		BotProgression(SimulationTick);
+ 		ProcessedTicks += 1;
+ 	}
+ 	```
+
+ - Bước 5: Cập nhật $LastUpdateTime$, sau khi xử lý xong toàn bộ $ElapsedTicks$
 
 	$$LastUpdateTime = LastUpdateTime + ElapsedTicks \times SimulationTick$$
-
-  	>  	Phần thời gian chưa đủ một $SimulationTick$ được giữ lại cho lần cập nhật sau.
 	
+	> Khoảng thời gian chưa đủ một $SimulationTick$ được giữa lại để cộng dồn cho lần cập nhật sau.
 
 ---
 

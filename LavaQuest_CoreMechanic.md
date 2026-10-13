@@ -149,6 +149,14 @@ $$
 Final_7 = T - \sum_{k = 1}^{6} Final_k
 $$
 
+## Bước 5
+
+Phân phối phần thưởng $P$ là tổng số Gold Coins mà local player sẽ nhận được khi hoàn thành 7 step:
+
+$$
+P = \lfloor \frac{10000}{W} \rfloor
+$$
+
 ---
 
 # SIMULATION
@@ -158,7 +166,7 @@ Kịch bản mô phỏng
 **Thông số đầu vào (config)**
 
 - Cohort size = 100
-- Prize = 10.000 Gold Coins
+- Prize = 10000 Gold Coins
 
 | Tier | Cumulative Range | Winner | Weight |
 |:---|:---|:---|:---|
@@ -233,15 +241,18 @@ $$
 Max_{allowed} = \min(d_i, d_7 - \text{Drift}_\text{pre})
 $$
 
-| Step | Base | $d = \lfloor Base \times 0.25 \rfloor$ | $Drift_{pre}$ | $[Min, Max]$ | $r$ | $Final$ | $Drift_{post}$ |
+| Step | Base | $d = \lfloor Base \times 0.25 \rfloor$ | $Drift_{pre}$ | $[Min, Max]$ | $r$ (random) | $Final$ | $Drift_{post}$ |
 |:---|:---|:---|:---|:---|:---|:---|:---|
-| 1 | 19 | 4 |  |
-| 2 | 14 | 3 |
-| 3 | 14 | 3 |
-| 4 | 14 | 3 |
-| 5 | 14 | 3 |
-| 6 | 10 | 2 |
-| 7 | 9 | 2 |
+| 1 | 19 | 4 | 0 | $[-2, 2]$ | $+1$ | 20 | $+1$ |
+| 2 | 14 | 3 | $+1$ | $[-3, 1]$ | $-2$ | 12 | $-1$ |
+| 3 | 14 | 3 | $-1$ | $[-1, 3]$ | $+2$ | 16 | $+1$ |
+| 4 | 14 | 3 | $+1$ | $[-3, 1]$ | $0$ | 14 | $+1$ |
+| 5 | 14 | 3 | $+1$ | $[-3, 1]$ | $-1$ | 13 | $0$ |
+| 6 | 10 | 2 | $0$ | $[-2, 2]$ | $1$ | 11 | $+1$ |
+| 7 | 9 | 2 | $+1$ | - | $-1$ (tự động) | 8 | $0$ |
 
+$Final_7 = 94 - (20 + 12 + 16 + 14 + 13 + 11) = 8$
 
+7. Phân phối phần thưởng cho Player
 
+$P = \lfloor \frac{10000}{6} = 1600 \rfloor$

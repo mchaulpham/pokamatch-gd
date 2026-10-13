@@ -243,7 +243,7 @@ $$
 Max_{allowed} = \min(d_i, d_7 - \text{Drift}_\text{pre})
 $$
 
-| Step | Base | $d = \lfloor Base \times 0.25 \rfloor$ | $Drift_{pre}$ | $[Min, Max]$ | $r$ (random) | $Final$ | $Drift_{post}$ |
+| Step | Base | $d = \lfloor Base \times 0.25 \rfloor$ | $Drift_{pre}$ | $[Min_{allowed}, Max_{allowed}]$ | $r$ (random) | $Final$ | $Drift_{post}$ |
 |:---|:---|:---|:---|:---|:---|:---|:---|
 | 1 | 19 | 4 | 0 | $[-2, 2]$ | $+1$ | 20 | $+1$ |
 | 2 | 14 | 3 | $+1$ | $[-3, 1]$ | $-2$ | 12 | $-1$ |

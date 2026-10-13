@@ -39,7 +39,7 @@ $$
 
 - **Input**:
 
-  - Tổng số Bot cần loại $T$
+  - Tổng số Bot cần loại trừ là: $T$
  
   - Bảng config để phân phối $T$ vào mỗi step bằng trọng số `Pacing Weight`
  

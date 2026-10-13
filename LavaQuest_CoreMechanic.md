@@ -2,11 +2,11 @@
 
 - Thời điểm: Ngay khi Cohort được tạo (Player bấm Start)
 
-- Logic: Hệ thống random một giá trị $R$ trong $[0, 100]$ để chọn ra __Tier__ theo bảng config bên dưới để từ đó xác định được `Target_Total_Winners`.
+- Logic: Hệ thống random một giá trị $R$ trong $[0, 100]$ để chọn ra __Tier__ theo bảng config bên dưới để từ đó xác định được **tổng số Winner**.
 
 | Tier | Cumulative Range | Winner | Weight |
 |:---|:---|:---|:---|
-| Champion | $[1, 5]$ | 1 | 0.5 |
+| Champion | $[1, 5]$ | 1 | 0.05 |
 | Top | $[6, 20]$ | $[2, 3]$ | 0.15 |
 | Mid | $[21, 80]$ | $[4, 8]$ | 0.6 |
 | Crowd | $[81, 100]$ | $[9, 15]$ | 0.2 |
@@ -88,6 +88,8 @@ $$
 $$
 \sum_{i = 1}^{7} Base_i = T
 $$
+
+> **Lưu ý**: Công thêm 1 đơn vị vào $\lfloor Base_i \rfloor$, nếu các $step_i$ có $Remainder$ bằng nhau, thì ưu tiên chọn $i$ nhỏ hơn.
 
 ### Output
 
@@ -255,4 +257,4 @@ $Final_7 = 94 - (20 + 12 + 16 + 14 + 13 + 11) = 8$
 
 7. Phân phối phần thưởng cho Player
 
-$P = \lfloor \frac{10000}{6} = 1600 \rfloor$
+$P = \lfloor \frac{10000}{6} = 1666 \rfloor$

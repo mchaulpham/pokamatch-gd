@@ -89,7 +89,7 @@ $$
 \sum_{i = 1}^{7} Base_i = T
 $$
 
-> **Lưu ý**: Công thêm 1 đơn vị vào $\lfloor Base_i \rfloor$, nếu các $step_i$ có $Remainder$ bằng nhau, thì ưu tiên chọn $i$ nhỏ hơn.
+> **Lưu ý**: Khi cộng thêm 1 đơn vị vào $\lfloor Base_i \rfloor$, nếu các $step_i$ có $Remainder$ bằng nhau, thì ưu tiên chọn $i$ nhỏ hơn.
 
 ### Output
 

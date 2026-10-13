@@ -83,7 +83,7 @@ $$
 
 3. Sắp xếp và tìm kiếm các $step_i$ theo $Remainder_i$ giảm dần.
 
-4. Công thêm 1 đơn vị vào $\lfloor Base_i \rfloor$ của các $step$ có $Remainder$ lớn nhất cho đến khi:
+4. Cộng thêm 1 đơn vị vào $\lfloor Base_i \rfloor$ của các $step$ có $Remainder$ lớn nhất cho đến khi:
 
 $$
 \sum_{i = 1}^{7} Base_i = T

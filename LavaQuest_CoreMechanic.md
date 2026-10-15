@@ -258,3 +258,37 @@ $Final_7 = 94 - (20 + 12 + 16 + 14 + 13 + 11) = 8$
 7. Phân phối phần thưởng cho Player
 
 $P = \lfloor \frac{10000}{6} = 1666 \rfloor$
+
+---
+
+# TEST CASE
+
+## CORE LOGIC
+
+| Mã TC | Scenario | Assertion |
+|:---|:---|:---|
+| CL-01 | Chạy với $T$ (tổng số Bot cần loại) bất kỳ.<br><br>$85 \le T \le 99$ | Tổng 7 step phải bằng chính xác $T$.<br><br>$\sum_{i=1}^{7} step_i = T$ |
+| CL_02 | Kiểm tra giá trị của từng step. | Không có step nào có số bot bị loại $\le 0$.<br><br>$Final_i \ge 1$ |
+| CL-03 | Kiểm tra Step 7 | $step_7 \le 0.15 \times T$ |
+
+## PACING & UX
+
+| Mã TC | Scenario | Assertion |
+|:---|:---|:---|
+| PACE-01 | So sánh lượng bot loại ở Step 1 và Step 6 | Step 1 phải loại nhiều hơn Step 6 trong đa số các lần chạy (> 80%).<br><br>$step_1 \ge step_6$ |
+| PACE-02 | Kiểm tra sự phân bổ đều | Không được có nhiều hơn 2 step liên tiếp bị loại $\le 2$ bot. |
+| PACE-03 | Kiểm tra tỷ lệ tích lũy | Tại Step 3, tổng số bot đã loại phải xấp xỉ $[0.45, 0.55]$ của $T$ |
+
+## Edge Cases
+
+| Mã TC | Scenario | Assertion |
+|:---|:---|:---|
+| EDGE-01 | Với $T$ rất nhỏ (ví dụ: $T = 5$) | Hệ thống không crash. Tổng số bot bị loại ở 7 step = 5 |
+| EDGE-02 | Với $T$ rất lớn (ví dụ: $T = 99$) | Hệ thống không crash. $Step_7 \le 15$ |
+
+## Randomness
+
+| Mã TC | Scenario | Assertion |
+|:---|:---|:---|
+| RAND-01 | Chạy 1000 lần với cùng 1 giá trị $T$ | Không có 2 lần chạy nào cho ra kết quả giống hệt nhau ở tất cả 7 step. |
+| RAND-02 | Tính độ lệch chuẩn của 1000 lần chạy ở Step 1 | Độ lệch chuẩn phải $> 0$. |

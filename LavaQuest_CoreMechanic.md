@@ -279,14 +279,14 @@ $P = \lfloor \frac{10000}{6} = 1666 \rfloor$
 | PACE-02 | Kiểm tra sự phân bổ đều | Không được có nhiều hơn 2 step liên tiếp bị loại $\le 2$ bot. |
 | PACE-03 | Kiểm tra tỷ lệ tích lũy | Tại Step 3, tổng số bot đã loại phải xấp xỉ $[0.45, 0.55]$ của $T$ |
 
-## Edge Cases
+## EDGE CASE
 
 | Mã TC | Scenario | Assertion |
 |:---|:---|:---|
 | EDGE-01 | Với $T$ rất nhỏ (ví dụ: $T = 5$) | Hệ thống không crash. Tổng số bot bị loại ở 7 step = 5 |
 | EDGE-02 | Với $T$ rất lớn (ví dụ: $T = 99$) | Hệ thống không crash. $Step_7 \le 15$ |
 
-## Randomness
+## RANDOMNESS
 
 | Mã TC | Scenario | Assertion |
 |:---|:---|:---|

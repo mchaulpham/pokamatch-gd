@@ -257,7 +257,7 @@ $Final_7 = 94 - (20 + 12 + 16 + 14 + 13 + 11) = 8$
 
 7. Phân phối phần thưởng cho Player
 
-$P = \lfloor \frac{10000}{6} = 1666 \rfloor$
+$P = \lfloor \frac{10000}{6} \rfloor$ = 1666
 
 ---
 

@@ -268,7 +268,7 @@ $P = \lfloor \frac{10000}{6} = 1666 \rfloor$
 | Mã TC | Scenario | Assertion |
 |:---|:---|:---|
 | CL-01 | Chạy với $T$ (tổng số Bot cần loại) bất kỳ.<br><br>$85 \le T \le 99$ | Tổng 7 step phải bằng chính xác $T$.<br><br>$\sum_{i=1}^{7} step_i = T$ |
-| CL_02 | Kiểm tra giá trị của từng step. | Không có step nào có số bot bị loại $\le 0$.<br><br>$Final_i \ge 1$ |
+| CL_02 | Kiểm tra giá trị của từng step. | Không có step nào có số bot bị loại $\le 0$.<br><br>$step_i \ge 1$ |
 | CL-03 | Kiểm tra Step 7 | $step_7 \le 0.15 \times T$ |
 
 ## PACING & UX
